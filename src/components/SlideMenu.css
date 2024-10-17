@@ -1,0 +1,46 @@
+.slide-menu {
+    position: relative;
+    margin-top: 70px; /* Height of the header to prevent overlap */
+  }
+  
+  .slide-menu__slide {
+    position: relative;
+  }
+  
+  .slide-menu__image {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+  }
+  
+  .slide-menu__overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .slide-menu__overlay h1 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 32px;
+  }
+  
+  /* Swiper Navigation Buttons */
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #ffffff;
+  }
+  
+  /* Swiper Pagination Dots */
+  .swiper-pagination-bullet {
+    background: #ffffff;
+    opacity: 0.7;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: #007BFF;
+    opacity: 1;
+  }
