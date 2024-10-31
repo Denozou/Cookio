@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import './DishTile.css';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line react/prop-types

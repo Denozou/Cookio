@@ -1,4 +1,4 @@
-import React from 'react'
+//import React from 'react'
 import './TileGrid.css';
 import Gin from "../assets/Gin.jpg";
 import Top10 from "../assets/top-10-autumn-recipes.jpg";
