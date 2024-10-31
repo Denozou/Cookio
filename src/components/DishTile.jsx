@@ -1,6 +1,7 @@
 import React from 'react';
 import './DishTile.css';
 import { Link } from 'react-router-dom';
+// eslint-disable-next-line react/prop-types
 const DishTile = ({ id, image, name, description, time }) => {
   return (
     <Link to={`/dish/${id}`} className="dish-tile__link"> 
