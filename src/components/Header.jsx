@@ -7,13 +7,13 @@ export default function Header() {
     <header className="header">
       <div className="header__brand">cookio</div>
       <nav className="header__nav">
-        <a href="#home">Home</a>
-        <a href="#categories">Categories</a>
+        <a href="/">Home</a>
+        <a href="/categories">Categories</a>
         <a href="#articles">Articles</a>
-        <a href="#contacts">Contacts</a>
+        <a href="/contacts">Contacts</a>
       </nav>
       <div className="header__profile">
-        <FaUserCircle size={30} />
+        <a href="/userprofile"><FaUserCircle size={30} /></a>
       </div>
     </header>
   )

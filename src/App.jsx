@@ -7,6 +7,10 @@ import PopularDishes from './components/PopularDishes';
 import DishDetail from './components/DishDetail';
 import NewArticles from './components/NewArticles';
 import TileGrid from './components/TileGrid';
+import UserProfile from './components/UserProfile';
+import SearchPage from './components/SearchPage';
+import CategoryPage from './components/CategoryPage';
+import ContactPage from './components/ContactPage';
 function App() {
   
   return (
@@ -26,7 +30,10 @@ function App() {
           }
         />
         <Route path="/dish/:id" element={<DishDetail />} />
-
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/categories" element={<CategoryPage />} />
+        <Route path="/contacts" element={<ContactPage />} />
       </Routes>
     </div>
   </Router>

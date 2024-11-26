@@ -1,0 +1,108 @@
+.user-profile {
+    max-width: 800px;
+    margin: 60px auto; /* Added top margin to prevent overlap with the header */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: flex-start; /* Ensures items align at the top */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Ensures proper layout on smaller screens */
+  }
+  
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    margin-right: 20px;
+    margin-bottom: 10px; /* Space for smaller screens */
+  }
+  
+  .profile-info {
+    flex: 1;
+    min-width: 250px; /* Ensures fields don’t shrink too much */
+  }
+  
+  .profile-info h2 {
+    margin: 0;
+    font-size: 1.8em;
+  }
+  
+  .profile-info p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .profile-info input,
+  .profile-info textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  textarea {
+    resize: none;
+    height: 60px;
+  }
+  
+  .profile-actions {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-actions button {
+    margin: 5px 0;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .profile-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .profile-actions button:nth-child(2) {
+    background-color: #6c757d;
+  }
+  
+  .profile-actions button:nth-child(2):hover {
+    background-color: #5a6268;
+  }
+  
+  .liked-posts {
+    margin-top: 30px;
+  }
+  
+  .liked-posts h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  
+  .liked-posts ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .liked-posts li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  
