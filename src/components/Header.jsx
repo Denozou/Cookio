@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.css';
-import { FaUserCircle } from 'react-icons/fa';
+//import { FaUserCircle } from 'react-icons/fa';
+import userprofile from "../assets/userprofile.jpg";
 
 export default function Header() {
   return (
@@ -13,7 +14,7 @@ export default function Header() {
         <a href="/contacts">Contacts</a>
       </nav>
       <div className="header__profile">
-        <a href="/userprofile"><FaUserCircle size={30} /></a>
+        <a href="/userprofile"><img src={userprofile} alt="User Profile" /></a>
       </div>
     </header>
   )
