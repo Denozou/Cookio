@@ -3,7 +3,7 @@ import ArticleTile from './ArticleTile'
 import DishTile from './DishTile';
 import './NewArticles.css'
 import SampleImage from "../assets/carbonara.jpg"
-import { FaAudioDescription } from 'react-icons/fa'
+//import { FaAudioDescription } from 'react-icons/fa'
 const articles = [
     {
         id: "sample-article",
