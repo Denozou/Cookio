@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 //import { FaUserCircle } from 'react-icons/fa';
-import userprofile from "../assets/userprofile.jpg";
+import userprofile from "../assets/userprofile.png";
 
 export default function Header() {
   return (
