@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './DishDetail.css';
+//import './DishDetail.css';
 import SpaghettiCarbonara from '../assets/carbonara.jpg';
 import ChickenTikkaMasala from '../assets/Chicken-Tikka-Masala.jpg';
 import AssortedSushiPlatter from '../assets/Assorted-Sushi-Platter.jpg';
