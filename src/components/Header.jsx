@@ -14,7 +14,7 @@ export default function Header() {
         <a href="/contacts">Contacts</a>
       </nav>
       <div className="header__profile">
-        <a href="/userprofile"><img src={userprofile} alt="User Profile" /></a>
+        <a href="/userprofile"><img src={userprofile} alt="User Profile" width={40} height={40}/></a>
       </div>
     </header>
   )
