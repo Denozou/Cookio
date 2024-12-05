@@ -1,9 +1,46 @@
+
+.add-recipe-container {
+    position: relative;
+    padding-top: 60px; /* Space for the header */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.go-back-button {
+    position: absolute;
+    top: 90px; /* Adjust this value to position below the header */
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 10; /* Ensure it's above other elements */
+}
+
+.go-back-button:hover {
+    background-color: #5a6268;
+}
+
 .add-recipe {
+    padding: 20px;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+
+.add-recipe {
+    padding-top: 70px;
     margin: 20px auto;
     padding: 20px;
     max-width: 600px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    padding-top: 70px;
     background-color: #f9f9f9;
 }
 
@@ -47,5 +84,7 @@
 .add-recipe p {
     text-align: center;
     font-size: 14px;
-    color: green;
+    color: #007bff;
 }
+
+

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import SpaghettiCarbonara from '../assets/carbonara.jpg';
 import ChickenTikkaMasala from '../assets/Chicken-Tikka-Masala.jpg';
 import AssortedSushiPlatter from '../assets/Assorted-Sushi-Platter.jpg';
-
+//замінити на запит з бекенду
 const dishes = [
     {
       id: 'spaghetti-carbonara',
@@ -98,7 +98,7 @@ export default function DishDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
   
-    const dish = dishes.find((dish) => dish.id === id);
+    const dish = dishes.find((dish) => dish.id === id);//не змінювати на запит з беку
   
     if (!dish) {
       return (

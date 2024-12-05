@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./UserProfile.css";
+import { useNavigate } from 'react-router-dom';
 import AddRecipe from "./AddRecipe";
 
 
@@ -17,10 +18,13 @@ const UserProfile = () => {
       // { id: 3, title: "10 Best Desserts You Must Try" },
     ],
   });
-
+  
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [newProfilePic, setNewProfilePic] = useState<File | null>(null);
-
+  const handleAddRecipeClick = () => {
+    navigate('/addrecipe');
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -102,6 +106,9 @@ const UserProfile = () => {
             />
           )}
         </div>
+        <button onClick={handleAddRecipeClick} className="add-recipe-button">
+          Add New Recipe
+        </button>
         <div className="profile-actions">
           {isEditing ? (
             <>

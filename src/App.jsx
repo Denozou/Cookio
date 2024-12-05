@@ -11,6 +11,7 @@ import UserProfile from './components/UserProfile';
 import SearchPage from './components/SearchPage';
 import CategoryPage from './components/CategoryPage';
 import ContactPage from './components/ContactPage';
+import AddRecipe from './components/AddRecipe';
 function App() {
   
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/contacts" element={<ContactPage />} />
+        <Route path="/addrecipe" element={<AddRecipe />} />
       </Routes>
     </div>
   </Router>
