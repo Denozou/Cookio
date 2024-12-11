@@ -12,6 +12,9 @@ import SearchPage from './components/SearchPage';
 import CategoryPage from './components/CategoryPage';
 import ContactPage from './components/ContactPage';
 import AddRecipe from './components/AddRecipe';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
+
 function App() {
   
   return (
@@ -36,6 +39,8 @@ function App() {
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/contacts" element={<ContactPage />} />
         <Route path="/addrecipe" element={<AddRecipe />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </div>
   </Router>
