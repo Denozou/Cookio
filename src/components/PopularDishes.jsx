@@ -1,12 +1,14 @@
-import React from 'react'
+//import React from 'react';
 import DishTile from './DishTile';
 import './PopularDishes.css';
 import SpaghettiCarbonara from '../assets/carbonara.jpg';
 import ChickenTikkaMasala from '../assets/Chicken-Tikka-Masala.jpg';
 import AssortedSushiPlatter from '../assets/Assorted-Sushi-Platter.jpg';
+import MargheritaPizza from '../assets/margherita_pizza.jpg';
+import CarpeseSalad from "../assets/caprese_salad.jpg";
 const dishes = [
     {
-        id: 'spaghetti-carbonara',
+        id: '26',
         image: SpaghettiCarbonara,
         name: 'Spaghetti Carbonara',
         description:
@@ -31,24 +33,18 @@ const dishes = [
           ],
     },
     {
-        id: 'chicken-tikka-masala',
-      image: ChickenTikkaMasala,
-      name: 'Chicken Tikka Masala',
+        id: '27',
+      image: MargheritaPizza,
+      name: 'Margherita Pizza',
       description:
-        'Tender chunks of grilled chicken enveloped in a spiced creamy tomato sauce. A favorite in Indian cuisine.',
+        'A traditional pizza topped with tomatoes, mozzarella, and basil.',
       time: '45 mins',
       ingredients: [
-        '500g chicken breast',
-        '200g yogurt',
-        '2 tbsp tikka masala paste',
-        '1 onion, chopped',
-        '2 garlic cloves, minced',
-        '1 tbsp ginger, grated',
-        '400g canned tomatoes',
-        '200ml cream',
-        '2 tbsp vegetable oil',
-        'Salt',
-        'Fresh cilantro for garnish',
+        'Tomato',
+        'Wheat Flour',
+        'Cheddar Cheese',
+        'Olive Oil',
+        'Cream',
       ],
       steps: [
         'Marinate chicken in yogurt and tikka masala paste for at least 1 hour.',
@@ -61,24 +57,19 @@ const dishes = [
       ],
     },
     {
-        id: 'assorted-sushi-platter',
-        image: AssortedSushiPlatter,
-        name: 'Assorted Sushi Platter',
+        id: '28',
+        image: CarpeseSalad,
+        name: 'Caprese Salad',
         description:
-          'A delightful assortment of fresh sushi rolls, nigiri, and sashimi, perfect for any occasion.',
-        time: '60 mins',
+          'A fresh and simple Italian salad with tomatoes, mozzarella, and basil..',
+        time: '15 mins',
         ingredients: [
-          '2 cups sushi rice',
-          '3 cups water',
-          '1/4 cup rice vinegar',
-          '2 tbsp sugar',
-          '1 tsp salt',
-          'Assorted fresh fish (salmon, tuna)',
-          'Nori sheets',
-          'Vegetables (cucumber, avocado)',
-          'Soy sauce',
-          'Wasabi',
-          'Pickled ginger',
+          'Pepper',
+          'Olive Oil',
+          'Mozzarellar',
+          'Tomato',
+          'Salt',
+          'Lime',
         ],
         steps: [
             'Rinse sushi rice until water runs clear, then cook with water.',
@@ -90,23 +81,26 @@ const dishes = [
             'Arrange nigiri and sashimi on a platter, garnish with pickled ginger and wasabi.',
           ],
     },
-  ];
+];
+
 export default function PopularDishes() {
-  return (
-<section className="popular-dishes">
-      <h2 className="popular-dishes__title">Popular Dishes</h2>
-      <div className="popular-dishes__tiles">
-        {dishes.map((dish) => (
-          <DishTile
-            key={dish.id}
-            id={dish.id}
-            image={dish.image}
-            name={dish.name}
-            description={dish.description}
-            time={dish.time}
-          />
-        ))}
-      </div>
-    </section>
-  )
+    return (
+        <section className="popular-dishes">
+            <div className="container">
+                <h2 className="popular-dishes__title">Popular Dishes</h2>
+                <div className="popular-dishes__tiles">
+                    {dishes.map((dish) => (
+                        <DishTile
+                            key={dish.id}
+                            id={dish.id}
+                            image={dish.image}
+                            name={dish.name}
+                            description={dish.description}
+                            time={dish.time}
+                        />
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 }

@@ -1,97 +1,204 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./CategoryPage.css";
-import DishTile from './DishTile';
+import DishTile from "./DishTile";
+import { Dish } from "./Dish";
 
+const token = localStorage.getItem("jwtToken");
 
-//замінити на запит до бекенду
-const dishes = [
-  {
-    id: 1,
-    name: "The Borscht",
-    description:
-      "Borscht is a rich beetroot soup with broth, cabbage, potatoes and carrots. Served hot with sour cream and fresh herbs, it creates a rich aroma and taste.",
-    image: "https://via.placeholder.com/300", 
-    time: "2 hour 30 min",
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    name: "The Lasagne",
-    description:
-      "Lasagne is a layered Italian dish with thin sheets of dough, juicy meat sauce, tomatoes and melted cheese. Served hot, with a rich taste and an appetizing crust.",
-    image: "https://via.placeholder.com/300", 
-    time: "40 min",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Caesar Salad",
-    description:
-      "Caesar salad is a salad with crisp romaine lettuce, chicken, croutons and Parmesan cheese, dressed with a tangy garlic-anchovy dressing.",
-    image: "https://via.placeholder.com/300",
-    time: "30 min",
-    rating: 4.8,
-  },
+const staticCategories = [
+  "Main Course",
+  "Appetizer",
+  "Soup",
+  "Dessert",
+  "Salad",
+  "Breakfast",
+  "Snack",
+  "Beverage",
+  "Sauce",
+  "Side Dish",
 ];
-//dropdown menu з категоріями
+
 function CategoryPage() {
-  const [selectedCategory, setSelectedCategory] = useState("Category");
-  const [selectedDishes, setSelectedDishes] = useState("Dishes");
-  const [selectedIngredients, setSelectedIngredients] = useState("Ingredients");
-  const [selectedCuisines, setSelectedCuisines] = useState("Cuisines");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Any");
+  const [selectedType, setSelectedType] = useState<string>("Any");
+  const [selectedIngredients, setSelectedIngredients] = useState<string>("Any");
+  const [selectedCuisine, setSelectedCuisine] = useState<string>("Any");
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [cuisines, setCuisines] = useState<{ id: number; name: string }[]>([]);
+  const [types, setTypes] = useState<{ id: number; name: string }[]>([]);
+  const [ingredients, setIngredients] = useState<{ id: number; name: string }[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCategory(e.target.value);
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const recipesResponse = await axios.get<Dish[]>("http://localhost:8080/api/client/recipes", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setDishes(recipesResponse.data);
+
+        const cuisineResponse = await axios.get("http://localhost:8080/api/client/cuisines", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCuisines(cuisineResponse.data);
+
+        const typeResponse = await axios.get("http://localhost:8080/api/client/types", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setTypes(typeResponse.data);
+
+        const ingredientsResponse = await axios.get("http://localhost:8080/api/client/ingredients", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setIngredients(ingredientsResponse.data);
+      } catch (error) {
+        console.error("Error fetching initial data:", error);
+        setError("Failed to fetch initial data. Please try again later.");
+      }
+    };
+
+    fetchInitialData();
+  }, []);
+
+  const handleFilterChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setter(e.target.value);
   };
 
-  const handleDishesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDishes(e.target.value);
-  };
+  const fetchFilteredDishes = async () => {
+    try {
+      let allDishes: Dish[] = [];
 
-  const handleIngredientsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedIngredients(e.target.value);
-  };
+      if (
+        selectedCategory === "Any" &&
+        selectedType === "Any" &&
+        selectedIngredients === "Any" &&
+        selectedCuisine === "Any"
+      ) {
+        const response = await axios.get<Dish[]>("http://localhost:8080/api/client/recipes", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setDishes(response.data);
+        return;
+      }
 
-  const handleCuisinesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCuisines(e.target.value);
+      if (selectedCategory !== "Any") {
+        const categoryResponse = await axios.get<Dish[]>(
+          `http://localhost:8080/api/client/recipes/search/category?category=${selectedCategory}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        allDishes = categoryResponse.data;
+      }
+
+      if (selectedType !== "Any") {
+        const typeResponse = await axios.get<Dish[]>(
+          `http://localhost:8080/api/client/recipes/search/type/${selectedType}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        allDishes = allDishes.length > 0
+          ? allDishes.filter((dish) =>
+              typeResponse.data.some((typeDish) => typeDish.id === dish.id)
+            )
+          : typeResponse.data;
+      }
+
+      if (selectedCuisine !== "Any") {
+        const cuisineResponse = await axios.get<Dish[]>(
+          `http://localhost:8080/api/client/recipes/search/cuisine/${selectedCuisine}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        allDishes = allDishes.length > 0
+          ? allDishes.filter((dish) =>
+              cuisineResponse.data.some((cuisineDish) => cuisineDish.id === dish.id)
+            )
+          : cuisineResponse.data;
+      }
+
+      if (selectedIngredients !== "Any") {
+        const ingredientsResponse = await axios.get<Dish[]>(
+          `http://localhost:8080/api/client/recipes/search/ingredients/${selectedIngredients}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        allDishes = allDishes.length > 0
+          ? allDishes.filter((dish) =>
+              ingredientsResponse.data.some((ingredientDish) => ingredientDish.id === dish.id)
+            )
+          : ingredientsResponse.data;
+      }
+
+      setDishes(allDishes);
+    } catch (err) {
+      console.error("Error fetching recipes:", err);
+      setError("Failed to fetch recipes. Please try again later.");
+    }
   };
 
   return (
     <div className="category-page">
       <h1 className="category-title">A diverse list of categories just for you</h1>
-      <div className="filters">  
-        <select value={selectedCategory} onChange={handleCategoryChange}> 
-          <option value="Category">Category</option> 
-          <option value="Soups">Soups</option>
-          <option value="Salads">Salads</option>
+      <div className="filters">
+        <select
+          value={selectedCategory}
+          onChange={handleFilterChange(setSelectedCategory)}
+        >
+          <option value="Any">Any</option>
+          {staticCategories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
-        <select value={selectedDishes} onChange={handleDishesChange}>
-          <option value="Dishes">Dishes</option>
-          <option value="Main Course">Main Course</option>
-          <option value="Side Dish">Side Dish</option>
+        
+        <select
+          value={selectedIngredients}
+          onChange={handleFilterChange(setSelectedIngredients)}
+        >
+          <option value="Any">Any</option>
+          {ingredients.map((ingredient) => (
+            <option key={ingredient.id} value={ingredient.id}>
+              {ingredient.name}
+            </option>
+          ))}
         </select>
-        <select value={selectedIngredients} onChange={handleIngredientsChange}>
-          <option value="Ingredients">Ingredients</option>
-          <option value="Chicken">Chicken</option>
-          <option value="Vegetarian">Vegetarian</option>
+        <select
+          value={selectedCuisine}
+          onChange={handleFilterChange(setSelectedCuisine)}
+        >
+          <option value="Any">Any</option>
+          {cuisines.map((cuisine) => (
+            <option key={cuisine.id} value={cuisine.id}>
+              {cuisine.name}
+            </option>
+          ))}
         </select>
-        <select value={selectedCuisines} onChange={handleCuisinesChange}>
-          <option value="Cuisines">Cuisines</option>
-          <option value="Italian">Italian</option>
-          <option value="French">French</option>
-        </select>
-        <button className="filter-button">Select a recipe</button>
+        <button className="filter-button" onClick={fetchFilteredDishes}>
+          Select a recipe
+        </button>
       </div>
       <div className="recipe-list">
+        {error && <p className="error-message">{error}</p>}
+        {dishes.length === 0 && !error && (
+          <p className="no-recipes-message">No recipes found matching your filters.</p>
+        )}
         {dishes.map((dish) => (
-            <DishTile
-                key={dish.id}
-                id={dish.id}
-                image={dish.image}
-                name={dish.name}
-                description={dish.description}
-                time={dish.time}
-            />
+          <DishTile
+            key={dish.id}
+            id={dish.id}
+            image={dish.image}
+            name={dish.title}
+            description={dish.description}
+            time={`${dish.prepTime + dish.cookTime} mins`}
+          />
         ))}
       </div>
     </div>

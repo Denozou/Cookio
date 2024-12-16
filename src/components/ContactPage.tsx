@@ -22,7 +22,7 @@ const ContactPage: React.FC = () => {
             <div className="contact-content">
                 <div className="contact-form">
                     <h2>Send us a message</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form className="contact-forms" onSubmit={handleSubmit}>
                         <input
                             type="text"
                             placeholder="Your Name"
@@ -53,7 +53,7 @@ const ContactPage: React.FC = () => {
                     <p><strong>Address:</strong> 123 Recipe Street, Warszawa</p>
                 </div>
             </div>
-        </div>
+        </div> 
     );
 };
 

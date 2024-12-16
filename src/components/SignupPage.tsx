@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css';
+import axios from 'axios';
 
 interface User {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }
-
 const SignupPage: React.FC = () => {
-  const [user, setUser] = useState<User>({ name: '', email: '', password: '' });
+  const [user, setUser] = useState<User>({ firstName: '', lastName: '', email: '', password: '' });
   const [confirmPassword, setConfirmPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -19,37 +20,38 @@ const SignupPage: React.FC = () => {
     const { name, value } = e.target;
     setUser(prevUser => ({ ...prevUser, [name]: value }));
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (user.password !== confirmPassword) {
       setErrorMessage("Passwords don't match");
       return;
     }
-
+  
     try {
-      const response = await fetch('/auth/register', {
-        method: 'POST',
+      const response = await axios.post("http://localhost:8080/auth/register", {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: "user",
+        password: user.password
+      }, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        withCredentials: true,
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSuccessMessage('Signup successful! Please check your email to verify your account.');
-        setTimeout(() => navigate('/login'), 3000); // редірект на сторінку логіна
+  
+      setSuccessMessage('Registration successful! Redirecting to login...');
+      setTimeout(() => navigate('/auth/login'), 3000);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setErrorMessage(err.response?.data?.message || "Registration failed. Please try again.");
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Signup failed. Please try again.');
+        setErrorMessage("Unable to connect to the server. Please try again.");
       }
-    } catch (error) {
-      console.error('Error during signup:', error);
-      setErrorMessage('An error occurred during signup. Please try again later.');
+      console.error(err);
     }
   };
-
   return (
     <div className="signup-page">
       <h1>Sign Up for Cookio</h1>
@@ -58,9 +60,17 @@ const SignupPage: React.FC = () => {
       <form onSubmit={handleSubmit} className="signup-form">
         <input
           type="text"
-          name="name"
-          placeholder="Full Name"
-          value={user.name}
+          name="firstName"
+          placeholder="First Name"
+          value={user.firstName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={user.lastName}
           onChange={handleChange}
           required
         />

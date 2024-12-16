@@ -1,18 +1,13 @@
-.popular-dishes {
-    padding: 50px 20px;
-    background-color: #ffffff;
-    text-align: center;
-  }
-  
-  .popular-dishes__title {
-    font-size: 28px;
-    margin-bottom: 40px;
-    color: #333333;
-  }
-  
-  .popular-dishes__tiles {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
+.popular-articles {
+	padding: 140px 0;
+}
+
+.popular-articles__title {
+	margin-bottom: 60px;
+	font-size: 48px;
+}
+
+.popular-articles__tiles {
+	display: flex;
+	flex-wrap: wrap;
+}
